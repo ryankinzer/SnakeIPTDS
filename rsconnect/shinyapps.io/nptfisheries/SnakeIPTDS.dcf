@@ -1,0 +1,12 @@
+name: SnakeIPTDS
+title: SnakeIPTDS
+username:
+account: nptfisheries
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3059626
+bundleId: 3763722
+url: https://nptfisheries.shinyapps.io/SnakeIPTDS/
+when: 1603222102.71927
+asMultiple: FALSE
+asStatic: FALSE

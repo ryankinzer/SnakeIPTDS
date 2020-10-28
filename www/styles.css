@@ -1,0 +1,67 @@
+
+/* header */
+.skin-blue .main-header {
+  position:fixed;
+  width:100%;
+/*  background-color: rgb(0,0,0); */
+}
+
+/* logo portion of header
+.skin-blue .main-header .logo {
+background-color: rgb(0,0,0);
+} */
+
+/*
+.skin-blue .main-header .logo:hover {
+background-color: rgb(0,0,0);
+}*/
+                              
+                              
+/* navbar (rest of the header)
+.skin-blue .main-header .navbar {
+background-color: rgb(0,0,0);
+} */
+
+.skin-blue .main-sidebar {
+  position: fixed;
+  height: 100vh;
+  background-color: rgb(0,0,0);
+} 
+
+/* sidebar toggle button */
+.sidebar-toggle > li.hover a{
+  background-color: rgb(0,0,100);
+}
+
+/* active selected tab in the sidebarmenu */
+.skin-blue .main-sidebar .sidebar .sidebar-menu .active a{
+background-color: rgb(0,0,100);
+color: white;
+}
+
+/* other links in the sidebarmenu */
+.skin-blue .main-sidebar .sidebar .sidebar-menu a{
+background-color: rgb(0,0,0);
+}
+/* sidebar bar to left of selected tab */
+.skin-blue .sidebar-menu > li.active > a {
+  border-left-color: rgb(0,0,100);
+}
+
+.shinybusy-busy {
+  position: fixed !important;
+  z-index:9999 !important;
+  top:200px !important;
+  right:38vw !important;
+  height:300px !important;
+  width:300px !important;
+}
+
+.shinybusy {
+  position: fixed !important;
+  z-index:9999 !important;
+  top:200px !important;
+  right:38vw !important;
+  height:400px !important;
+  width:400px !important;
+}
