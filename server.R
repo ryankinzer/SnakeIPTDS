@@ -102,7 +102,7 @@ output$raw_data <- DT::renderDataTable({
       paste0("iptds_estimates","_", Sys.Date(), ".csv")
     },
     content = function(filename) {
-      write.csv(site_est_spp, filename, row.names = FALSE)
+      write.csv(map_data()$site_est_spp, filename, row.names = FALSE)
     }
   )
   

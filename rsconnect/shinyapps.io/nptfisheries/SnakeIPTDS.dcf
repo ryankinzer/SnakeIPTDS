@@ -5,8 +5,8 @@ account: nptfisheries
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 3059626
-bundleId: 3763722
+bundleId: 3793886
 url: https://nptfisheries.shinyapps.io/SnakeIPTDS/
-when: 1603222102.71927
+when: 1603920486.90287
 asMultiple: FALSE
 asStatic: FALSE
