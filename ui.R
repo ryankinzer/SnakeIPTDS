@@ -1,9 +1,8 @@
-# Kus UI
 
 # DashboardHeader ----
 header <- dashboardHeader(
   title = "Snake IPTDS",
-  tags$li(tags$a("KUS Web App", href = "https://nptfisheries.shinyapps.io/kus-data/",
+  tags$li(tags$a("DFRM Data App", href = "https://nptfisheries.shinyapps.io/kus-data/",
                  target = '_blank',
                  class='navlinks'),
           class = 'dropdown'),
@@ -16,9 +15,6 @@ header <- dashboardHeader(
                 title = 'DFRM Home', height = "30px"),
             style = "padding-top:10px; padding-bottom:10px;"),
           class = "dropdown")
-  # div(id = "kustitle", 'IPTDS', style='float:right;'), 
-  # tags$li(img(src='NPTlogos2.png', title = NULL, draggable = FALSE, height = '40px'), 
-  #       class = 'dropdown', style = 'position: fixed; left:20px; padding-top:6px'),
 )
 
 # Dashboard Sidebar ----
@@ -26,8 +22,9 @@ sidebar <- dashboardSidebar(
   #useShinyjs(), # Activate ShinyJS
   tags$script(src='javascript.js'), # include Javascript file (for custom spinner functionality)
   sidebarMenu(
-    menuItem("Steelhead", tabName = 'steelhead', icon = icon("fish")),
-    menuItem("Spring-Summer Chinook", tabName = 'chinook', icon = icon("bar-chart")),
+    radioButtons('basin_spp', label = 'Species', choices = c('Steelhead', 'Chinook salmon'),
+                 selected = 'Steelhead'),
+    menuItem("Data Visualization", tabName = 'home', icon = icon("fish")),
     menuItem("Data Table", tabName = 'data', icon = icon("table")),
     div(class = 'busy',
                   img(src="kus_spinner.gif", height= 'auto', width = '100%') # Ty's B.A. custom Spinner
@@ -39,14 +36,17 @@ sidebar <- dashboardSidebar(
 body <- dashboardBody(
   includeCSS('./www/styles.css'),
   br(), br(), br(),
-  #textOutput("text"),
   tabItems(
-    tabItem("steelhead",
-            iptds_ui("steelhead")
-            ),
-    tabItem("chinook",
-            iptds_ui("chinook")
-            ),
+    tabItem("home",
+            #verbatimTextOutput("spp_text"), # debug option
+            iptds_ui("stadem"),
+            fluidRow(
+              column(12,
+                     box(width = NULL, solidHeader = TRUE, status = 'primary',
+                         title = 'Snake Basin Natural-Origin Population and IPTDS Site Escapement',
+                         leafletOutput("map", width = '100%', height = 600)))
+              )
+          ),
     tabItem('data',
             downloadButton('data_export', "Export Data"),
             DT::DTOutput('raw_data'),
@@ -55,4 +55,4 @@ body <- dashboardBody(
     )
 ) #dashboardBody
 
-dashboardPage(title = "Nez Perce Tribe's IPTDS Web Application", header, sidebar, body)#, skin= 'blue')
+dashboardPage(header, sidebar, body)

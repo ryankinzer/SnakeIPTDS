@@ -6,9 +6,6 @@ library(sf)
 library(leaflet)
 library(leafpop)
 library(htmlTable)
-#library(htmlwidgets)
-#library(htmltools)
-#library(lubridate)
 library(shinyjs)
 library(DT)
 
@@ -29,11 +26,6 @@ $("#login").click();
 }
 });
 '
-
-#spp_choice <- c('Steelhead', 'Chinook salmon') #'Chinook salmon'
-
-# plotly font for graph titles
-#plotly_font <<- list(family = 'Balto') # family, size, color
 
 # load points, rivers and polygons
 load("./data/large_rivers.rda")
@@ -65,7 +57,6 @@ krs <- site_est %>% filter(SiteID == 'KRS', species == 'Chinook salmon') %>%
   st_set_geometry(NULL)
 
 pop_est <- bind_rows(pop_est, krs)
-
 
 c_theme <- function(){
   theme(text = element_text(size = 16))
@@ -105,18 +96,3 @@ popGraph<- function(id){
   
   return(p)
 }
-
-# Create basemap ----
-# Basic NPT map area and Snake Basin
-
-basemap <- leaflet() %>%
-  #addTiles() %>%
-  setView(lng = -115.5660,
-          lat = 45.4000,#44.9218,
-          zoom = 7) %>%
-  addProviderTiles(providers$Esri.WorldTopoMap)%>%
-  addPolylines(data = pnw_rivers, color = 'blue', weight = 1) %>%
-  addPolylines(data = stream_layer, color = 'blue', weight = 1)
-
-sth_map <- mapFun(spp = 'Steelhead', basemap = basemap)
-chn_map <- mapFun(spp = 'Chinook salmon', basemap = basemap)

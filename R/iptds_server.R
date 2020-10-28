@@ -1,4 +1,4 @@
-iptds_server <- function(id, species_, map_) {
+iptds_server <- function(id, species_) {
   
   moduleServer(
     id,
@@ -10,7 +10,6 @@ iptds_server <- function(id, species_, map_) {
         ns <- session$ns # session provides the namespace
         
         stadem_data %>%
-          
           filter(species == species_) %>%
           filter(origin != 'Total') %>%
           ggplot(aes(x = fct_rev(as.factor(spawn_year)), y = estimate,
@@ -50,10 +49,6 @@ iptds_server <- function(id, species_, map_) {
                y = 'Estimate')
         
       })
-      
-      output$map <- renderLeaflet({
-      map_
-        })
 
       return()
     }#function

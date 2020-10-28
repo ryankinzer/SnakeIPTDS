@@ -1,7 +1,7 @@
 # gather plotting data----
 # get population polygons, graphs and set colors
 
-mapFun <- function(spp, basemap){
+mapFun <- function(spp){
 
 if(spp == 'Steelhead'){
   full_pop <- sth_pop
@@ -22,8 +22,6 @@ if(spp == 'Steelhead'){
     )
   
   p_all <- lapply(unique(pop_layer$TRT_POPID), popGraph)
-
-  pop_copop <- colorFactor(palette = 'viridis', domain = pop_layer$MPG)
 
 # get site point estimates, graphs and set colors
 
@@ -50,41 +48,8 @@ site_est_layer <- site_est %>%
   filter(species == spp) %>%
   distinct(SiteID, SiteName, SiteTypeName)
 
-pal <- colorFactor(
-  palette = topo.colors(9)[1:6],
-  domain = site_est_layer$SiteTypeName
-)
 
-# map----
-
- m <- basemap %>%
-    addPolygons(data = pop_layer,
-                label = ~TRT_POPID,
-                layerId = ~TRT_POPID,
-                group = 'Populations',
-                labelOptions = labelOptions(noHide = F, textsize = 12),
-                fillColor = ~pop_copop(MPG), weight = 1, fillOpacity = .5) %>%
-    addPopupGraphs(p_all, group = 'Populations') %>%
-    addPolygons(data = full_pop, group = 'Populations', fill = NA, stroke = TRUE,
-                color = 'black', weight = 2, opacity = 1, fillOpacity = 0) %>%
-    addCircleMarkers(data = site_est_layer, radius = 5,
-                     group = 'Sites',
-                     popup = site_tab,
-                     color = ~pal(site_est_layer$SiteTypeName),
-                     label = ~SiteID,
-                     layerId = ~SiteID,
-                     labelOptions = labelOptions(noHide = F),
-                     popupOptions = popupOptions(noHide = F, minWidth = 400, maxWidth = 400)) %>%
-    addLegend(data = site_est_layer, position = "bottomleft", pal = pal, values = ~SiteTypeName,
-              title = "Observation Type",
-              opacity = 1) %>%
-  addLegend(data = pop_layer, position = "bottomleft", pal = pop_copop, values = ~MPG,
-            title = "Major Population Group",
-            opacity = .5) %>%
-    addLayersControl(
-      overlayGroups = c("Populations", "Sites"),
-      options = layersControlOptions(collapsed = FALSE)
-    )
- 
-  return(m) 
+  savedlist = list(full_pop, pop_layer, p_all, site_est_spp, site_tab, site_est_layer)
+  names(savedlist) = c('full_pop','pop_layer', 'p_all', 'site_est_spp', 'site_tab', 'site_est_layer')
+  return(savedlist) 
 }
